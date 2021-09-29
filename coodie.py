@@ -29,10 +29,26 @@ voices = engine.getProperty("voices")
 # print(voices[1].id)
 engine.setProperty("voice", voices[0].id)
 
+engine.say('hello i am your coodie')
+engine.say('what can i do for you')
+engine.runAndWait()
+
 # define speak fuction:
 def speak(audio):
     engine.say(audio)
     engine.runAndWait()
+    
+def screenshot():
+    img = pyautogui.screenshot()
+    img.save('path of folder you want to save/screenshot.png')
+
+def cpu():
+    usage = str(psutil.cpu_percent())
+    speak("CPU is at"+usage)
+
+    battery = psutil.sensors_battery()
+    speak("battery is at")
+    speak(battery.percent)
 
 # <----------------------------------------->
 
@@ -252,6 +268,31 @@ if __name__ == "__main__":
             print(f"The LCM of {a} and {b} is {maxNum}")
             pyautogui.PAUSE = 6
             speak("the lcm of {a} and {b} is {maxNum}")
+            
+          elif "screenshot" in query:
+            speak("taking screenshot")
+            screenshot()
+            
+            
+          elif "what can you do" in query:
+             li_commands = {
+            "open websites": "Example: 'open youtube.com",
+            "time": "Example: 'what time it is?'",
+            "date": "Example: 'what date it is?'",
+            "launch applications": "Example: 'launch chrome'",
+            "tell me": "Example: 'tell me about India'",
+            "weather": "Example: 'what weather/temperature in Mumbai?'",
+            "news": "Example: 'news for today' " }
+             ans = """I can do lots of things, for example you can ask me time, date, weather in your city,
+                      I can open websites for you, launch application and more. See the list of commands-"""
+              print(ans)
+              pprint.pprint(li_commands)
+              speak(ans)
+                
+          elif 'cpu' in query:
+            cpu()
+                
+            
 
         # ---------> DAILY & REGULAR QUERIES <----------------------------------------------------------------------
 
